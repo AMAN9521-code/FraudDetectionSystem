@@ -27,58 +27,41 @@ public class DBConnection {
         }
 
         /*
-         * ==========================================
-         * RAILWAY CLOUD DATABASE
-         * ==========================================
-         *
-         * Railway provides MYSQL_URL for the
-         * connected MySQL service.
+         * Railway MySQL connection
          */
-        String mysqlUrl =
-                System.getenv("MYSQL_URL");
+        String host = System.getenv("MYSQLHOST");
+        String port = System.getenv("MYSQLPORT");
+        String database = System.getenv("MYSQLDATABASE");
+        String user = System.getenv("MYSQLUSER");
+        String password = System.getenv("MYSQLPASSWORD");
 
-        if (mysqlUrl != null
-                && !mysqlUrl.isBlank()) {
+        if (host != null && !host.isBlank()
+                && port != null && !port.isBlank()
+                && database != null && !database.isBlank()
+                && user != null && !user.isBlank()
+                && password != null && !password.isBlank()) {
 
-            /*
-             * Railway normally provides the URL
-             * beginning with mysql://
-             *
-             * JDBC requires jdbc:mysql://
-             */
-            if (mysqlUrl.startsWith("mysql://")) {
-                mysqlUrl =
-                        "jdbc:"
-                                + mysqlUrl;
-            }
-
-            /*
-             * Add JDBC connection options.
-             */
-            if (mysqlUrl.contains("?")) {
-                mysqlUrl +=
-                        "&useSSL=false"
-                        + "&allowPublicKeyRetrieval=true"
-                        + "&serverTimezone=UTC";
-            } else {
-                mysqlUrl +=
-                        "?useSSL=false"
-                        + "&allowPublicKeyRetrieval=true"
-                        + "&serverTimezone=UTC";
-            }
+            String railwayUrl =
+                    "jdbc:mysql://"
+                    + host
+                    + ":"
+                    + port
+                    + "/"
+                    + database
+                    + "?useSSL=false"
+                    + "&allowPublicKeyRetrieval=true"
+                    + "&serverTimezone=UTC"
+                    + "&connectTimeout=10000";
 
             return DriverManager.getConnection(
-                    mysqlUrl
+                    railwayUrl,
+                    user,
+                    password
             );
         }
 
         /*
-         * ==========================================
-         * LOCAL DEVELOPMENT
-         * ==========================================
-         *
-         * When MYSQL_URL does not exist,
-         * RADAR continues using local MySQL.
+         * Local development fallback
          */
         return DriverManager.getConnection(
                 LOCAL_URL,
