@@ -1,0 +1,1772 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+/* =========================================================
+   RADAR - Risk Analysis and Detection of Anonymous Response
+   DUNE THEME
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 78% 35%,
+            rgba(210, 125, 45, 0.20),
+            transparent 24%
+        ),
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(161, 92, 35, 0.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            #030303 0%,
+            #0a0705 35%,
+            #140b06 68%,
+            #050302 100%
+        );
+
+    color: #f2dfc4;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   DUNE BACKGROUND
+   ========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    left: -10%;
+    right: -10%;
+    bottom: -15%;
+
+    height: 48%;
+
+    background:
+        radial-gradient(
+            ellipse at 20% 90%,
+            #6f3512 0%,
+            #321608 28%,
+            transparent 55%
+        ),
+        radial-gradient(
+            ellipse at 55% 100%,
+            #8c4618 0%,
+            #3b1a08 25%,
+            transparent 58%
+        ),
+        radial-gradient(
+            ellipse at 90% 85%,
+            #6a300e 0%,
+            #241006 30%,
+            transparent 60%
+        );
+
+    transform: skewY(-5deg);
+
+    opacity: 0.8;
+
+    z-index: -3;
+}
+
+
+/* DUNE LAYERS */
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    left: -10%;
+    right: -10%;
+    bottom: -20%;
+
+    height: 38%;
+
+    background:
+        repeating-linear-gradient(
+            168deg,
+            transparent 0px,
+            transparent 8px,
+            rgba(220, 135, 58, 0.08) 9px,
+            transparent 11px
+        );
+
+    transform: rotate(-2deg);
+
+    opacity: 0.75;
+
+    z-index: -2;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   RADAR GLOW
+   ========================================================= */
+
+.radar-glow {
+    position: fixed;
+
+    width: 620px;
+    height: 620px;
+
+    left: 50%;
+    top: 42%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(218, 139, 64, 0.12) 0%,
+            rgba(218, 139, 64, 0.04) 35%,
+            transparent 70%
+        );
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/* RADAR RINGS */
+
+.radar-glow::before,
+.radar-glow::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 12%;
+
+    border: 1px solid rgba(210, 137, 67, 0.18);
+
+    border-radius: 50%;
+}
+
+.radar-glow::after {
+    inset: 28%;
+}
+
+
+/* =========================================================
+   MAIN HEADER
+   ========================================================= */
+
+.radar-header {
+    text-align: center;
+
+    padding: 55px 25px 30px;
+
+    position: relative;
+}
+
+
+/* SMALL TOP LABEL */
+
+.radar-header::before {
+    content: "DETECT   /   ANALYZE   /   PREVENT";
+
+    display: block;
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    color: #c98a4a;
+
+    margin-bottom: 24px;
+}
+
+
+/* =========================================================
+   RADAR MAIN TITLE
+   ========================================================= */
+
+.radar-title {
+    margin: 0;
+
+    font-family:
+        'Cinzel',
+        Georgia,
+        'Times New Roman',
+        serif !important;
+
+    font-size: clamp(70px, 12vw, 150px);
+
+    font-weight: 400 !important;
+
+    letter-spacing: 0.12em !important;
+
+    color: #e7b978 !important;
+
+    text-transform: uppercase;
+
+    line-height: 0.9;
+
+    text-shadow:
+        0 0 5px rgba(231, 185, 120, 0.65),
+        0 0 18px rgba(190, 120, 55, 0.30),
+        0 0 35px rgba(150, 80, 30, 0.15);
+}
+
+
+/* =========================================================
+   SUBTITLE
+   ========================================================= */
+
+.radar-subtitle {
+    margin: 30px auto 0;
+
+    max-width: 1000px;
+
+    font-size: clamp(12px, 1.5vw, 18px);
+
+    letter-spacing: 6px;
+
+    color: #d7b58d;
+
+    text-transform: uppercase;
+}
+
+
+/* DECORATIVE LINES */
+
+.radar-subtitle::before,
+.radar-subtitle::after {
+    content: "";
+
+    display: inline-block;
+
+    width: 90px;
+    height: 1px;
+
+    background: #a86732;
+
+    vertical-align: middle;
+
+    margin: 0 25px;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.radar-container {
+    width: min(1200px, 92%);
+
+    margin: 30px auto 80px;
+}
+
+
+/* =========================================================
+   GLASS / DUNE PANEL
+   ========================================================= */
+
+.radar-panel {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(38, 20, 10, 0.92),
+            rgba(8, 6, 5, 0.94)
+        );
+
+    border: 1px solid rgba(194, 125, 62, 0.28);
+
+    border-radius: 4px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 20px 70px rgba(0, 0, 0, 0.65),
+        inset 0 1px rgba(255, 205, 145, 0.06);
+
+    position: relative;
+}
+
+
+/* TOP GOLD LINE */
+
+.radar-panel::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 8%;
+    right: 8%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #b87538,
+            #e2b27d,
+            #b87538,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.radar-welcome {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.radar-welcome h2 {
+    margin: 0 0 12px;
+
+    font-size: 30px;
+
+    font-weight: 400;
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    color: #e7c29b;
+}
+
+.radar-welcome p {
+    color: #9f866e;
+
+    margin: 6px;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.radar-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+
+.radar-card {
+    position: relative;
+
+    min-height: 230px;
+
+    padding: 28px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(45, 24, 12, 0.9),
+            rgba(12, 9, 7, 0.95)
+        );
+
+    border: 1px solid rgba(184, 117, 56, 0.22);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.radar-card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(226, 170, 108, 0.65);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.55),
+        0 0 25px rgba(184, 102, 35, 0.12);
+}
+
+
+.radar-card h2 {
+    color: #dfb37e;
+
+    font-size: 19px;
+
+    font-weight: 400;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.radar-card p {
+    color: #9f8872;
+
+    line-height: 1.6;
+
+    min-height: 60px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.radar-button {
+    display: inline-block;
+
+    padding: 11px 20px;
+
+    margin-top: 12px;
+
+    color: #f5dec2;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    border: 1px solid #9e6332;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 76, 28, 0.55),
+            rgba(55, 27, 11, 0.7)
+        );
+
+    transition: all 0.25s ease;
+}
+
+
+.radar-button:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #a85d20,
+            #5c2b0c
+        );
+
+    border-color: #e0a86f;
+
+    box-shadow:
+        0 0 20px rgba(205, 125, 48, 0.25);
+}
+
+
+/* SECONDARY BUTTON */
+
+.radar-button-secondary {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding: 9px 15px;
+
+    color: #bba087;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    border: 1px solid rgba(184, 117, 56, 0.18);
+}
+
+
+.radar-button-secondary:hover {
+    color: #e5c29f;
+
+    border-color: #9d6335;
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.radar-logout {
+    display: block;
+
+    width: fit-content;
+
+    margin: 35px auto 0;
+
+    padding: 11px 28px;
+
+    color: #d7a27a;
+
+    border: 1px solid rgba(145, 65, 45, 0.5);
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    font-size: 11px;
+}
+
+
+.radar-logout:hover {
+    background: rgba(100, 25, 15, 0.35);
+
+    border-color: #c36b4d;
+
+    color: #f0c1a0;
+}
+
+
+/* =========================================================
+   LOGIN / FORM ELEMENTS
+   ========================================================= */
+
+.radar-form {
+    width: min(500px, 92%);
+
+    margin: 50px auto;
+}
+
+
+.radar-form label {
+    display: block;
+
+    margin: 18px 0 7px;
+
+    color: #c49b73;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.radar-form input,
+.radar-form select,
+.radar-form textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    background: rgba(10, 7, 5, 0.9);
+
+    border: 1px solid rgba(184, 117, 56, 0.3);
+
+    color: #ead4bb;
+
+    outline: none;
+}
+
+
+.radar-form input:focus,
+.radar-form select:focus,
+.radar-form textarea:focus {
+    border-color: #c8894e;
+
+    box-shadow:
+        0 0 15px rgba(200, 137, 78, 0.12);
+}
+
+
+.radar-form button {
+    margin-top: 25px;
+
+    width: 100%;
+
+    padding: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #9c531c,
+            #542508
+        );
+
+    border: 1px solid #bd7740;
+
+    color: #f8dfc3;
+
+    cursor: pointer;
+
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+}
+
+
+.radar-form button:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #b96723,
+            #6b300d
+        );
+}
+
+
+/* =========================================================
+   TABLES
+   ========================================================= */
+
+.radar-table-wrapper {
+    overflow-x: auto;
+}
+
+
+.radar-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 20px;
+
+    font-size: 13px;
+}
+
+
+.radar-table th {
+    padding: 14px;
+
+    text-align: left;
+
+    color: #d8a875;
+
+    background: rgba(104, 51, 18, 0.35);
+
+    border-bottom: 1px solid #81502c;
+
+    letter-spacing: 1px;
+}
+
+
+.radar-table td {
+    padding: 13px;
+
+    color: #c0a58c;
+
+    border-bottom: 1px solid rgba(184, 117, 56, 0.12);
+}
+
+
+.radar-table tr:hover td {
+    background: rgba(127, 66, 25, 0.12);
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border: 1px solid rgba(200, 137, 78, 0.35);
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.radar-footer {
+    text-align: center;
+
+    padding: 30px;
+
+    color: #705b48;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   GENERAL SERVLET PAGE
+   ========================================================= */
+
+body.radar-servlet-page {
+    background:
+        radial-gradient(
+            circle at 78% 20%,
+            rgba(205, 119, 40, 0.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 20% 70%,
+            rgba(130, 62, 20, 0.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            #030303 0%,
+            #090604 35%,
+            #160b05 70%,
+            #030202 100%
+        );
+
+    color: #e8d0b5;
+}
+
+
+/* =========================================================
+   SERVLET PAGE HEADER
+   ========================================================= */
+
+.radar-servlet-header {
+    text-align: center;
+
+    padding: 45px 20px 25px;
+
+    border-bottom:
+        1px solid rgba(184, 117, 56, 0.20);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(20, 10, 5, 0.95),
+            rgba(5, 4, 3, 0.75)
+        );
+}
+
+
+/* RADAR HEADING ON SERVLET PAGES */
+
+.radar-servlet-header h1 {
+    margin: 0;
+
+    font-family:
+        'Cinzel',
+        Georgia,
+        'Times New Roman',
+        serif !important;
+
+    font-size: clamp(38px, 7vw, 80px);
+
+    font-weight: 400 !important;
+
+    letter-spacing: 0.12em !important;
+
+    color: #e4b983 !important;
+
+    text-transform: uppercase;
+
+    line-height: 0.9;
+
+    text-shadow:
+        0 0 5px rgba(228, 185, 131, 0.55),
+        0 0 18px rgba(177, 90, 29, 0.25);
+}
+
+
+.radar-servlet-header p {
+    margin-top: 20px;
+
+    color: #a98b70;
+
+    letter-spacing: 4px;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   SERVLET CONTENT
+   ========================================================= */
+
+.radar-servlet-content {
+    width: min(1250px, 94%);
+
+    margin: 35px auto 70px;
+}
+
+
+.radar-servlet-panel {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34, 18, 9, 0.94),
+            rgba(7, 6, 5, 0.96)
+        );
+
+    border:
+        1px solid rgba(190, 123, 59, 0.25);
+
+    padding: 28px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.55);
+
+    position: relative;
+}
+
+
+.radar-servlet-panel::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 10%;
+    right: 10%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #c47b38,
+            #e2b17b,
+            #c47b38,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.radar-page-title {
+    text-align: center;
+
+    margin: 5px 0 30px;
+
+    color: #dfb27d;
+
+    font-size: 25px;
+
+    font-weight: 400;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   SERVLET TABLE
+   ========================================================= */
+
+.radar-servlet-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.radar-servlet-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 750px;
+}
+
+
+.radar-servlet-table th {
+    padding: 15px 12px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(105, 53, 19, 0.55),
+            rgba(54, 26, 10, 0.55)
+        );
+
+    color: #dfb37d;
+
+    border-bottom:
+        1px solid rgba(205, 133, 65, 0.35);
+
+    text-align: left;
+
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.radar-servlet-table td {
+    padding: 13px 12px;
+
+    color: #c4a78d;
+
+    border-bottom:
+        1px solid rgba(184, 117, 56, 0.12);
+
+    font-size: 13px;
+}
+
+
+.radar-servlet-table tr:hover td {
+    background:
+        rgba(151, 77, 25, 0.12);
+
+    color: #e4c6a4;
+}
+
+
+/* =========================================================
+   RISK SCORE
+   ========================================================= */
+
+.radar-risk-score {
+    font-weight: bold;
+
+    color: #e3a15f;
+}
+
+
+/* =========================================================
+   ALERT STATUS
+   ========================================================= */
+
+.radar-status-open {
+    color: #e2b06f;
+
+    border:
+        1px solid rgba(226, 176, 111, 0.35);
+
+    padding: 5px 9px;
+}
+
+
+.radar-status-fraud {
+    color: #d97b55;
+
+    border:
+        1px solid rgba(217, 123, 85, 0.40);
+
+    padding: 5px 9px;
+}
+
+
+.radar-status-false {
+    color: #9fba88;
+
+    border:
+        1px solid rgba(159, 186, 136, 0.35);
+
+    padding: 5px 9px;
+}
+
+
+/* =========================================================
+   SERVLET BUTTONS
+   ========================================================= */
+
+.radar-servlet-button {
+    display: inline-block;
+
+    padding: 9px 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8e4918,
+            #4b2209
+        );
+
+    border:
+        1px solid #ad6a32;
+
+    color: #f0d5b4;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    transition: 0.25s ease;
+}
+
+
+.radar-servlet-button:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #b76220,
+            #642c0b
+        );
+
+    border-color: #dfaa72;
+
+    box-shadow:
+        0 0 18px rgba(194, 117, 50, 0.20);
+}
+
+
+/* =========================================================
+   DANGER BUTTON
+   ========================================================= */
+
+.radar-danger-button {
+    background:
+        linear-gradient(
+            135deg,
+            #67251a,
+            #32100b
+        );
+
+    border-color:
+        rgba(190, 83, 58, 0.55);
+}
+
+
+/* =========================================================
+   SERVLET FORMS
+   ========================================================= */
+
+.radar-servlet-form {
+    max-width: 700px;
+
+    margin: 0 auto;
+}
+
+
+.radar-servlet-form label {
+    display: block;
+
+    margin-top: 18px;
+
+    margin-bottom: 7px;
+
+    color: #c59c72;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.radar-servlet-form input,
+.radar-servlet-form select,
+.radar-servlet-form textarea {
+    width: 100%;
+
+    padding: 12px;
+
+    background:
+        rgba(5, 4, 3, 0.90);
+
+    border:
+        1px solid rgba(184, 117, 56, 0.28);
+
+    color: #e5ceb5;
+
+    outline: none;
+}
+
+
+.radar-servlet-form input:focus,
+.radar-servlet-form select:focus,
+.radar-servlet-form textarea:focus {
+    border-color: #c9894c;
+
+    box-shadow:
+        0 0 15px rgba(201, 137, 76, 0.12);
+}
+
+
+/* =========================================================
+   REPORT CARDS
+   ========================================================= */
+
+.radar-report-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 30px;
+}
+
+
+.radar-report-card {
+    padding: 22px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(52, 26, 11, 0.75),
+            rgba(10, 7, 5, 0.90)
+        );
+
+    border:
+        1px solid rgba(184, 117, 56, 0.22);
+}
+
+
+.radar-report-card h3 {
+    margin: 0 0 10px;
+
+    color: #a98b70;
+
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.radar-report-card .value {
+    font-size: 30px;
+
+    color: #e2b47e;
+
+    font-weight: 300;
+}
+
+
+/* =========================================================
+   REPORT SUMMARY
+   ========================================================= */
+
+.radar-report-section {
+    margin-top: 35px;
+}
+
+
+.radar-report-value {
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: #e7b66a;
+
+    margin-top: 12px;
+
+    letter-spacing: 0.5px;
+}
+
+
+.radar-rule {
+    margin-bottom: 24px;
+}
+
+
+.radar-rule-label {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 8px;
+
+    color: #e8d7bd;
+
+    font-size: 14px;
+}
+
+
+.radar-rule-label strong {
+    color: #d99a4a;
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+
+.radar-progress {
+    width: 100%;
+
+    height: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border:
+        1px solid rgba(217, 154, 74, 0.25);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.radar-progress span,
+.radar-progress-fill {
+    display: block;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #754018,
+            #c47a32,
+            #e7b66a
+        );
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 12px rgba(217, 154, 74, 0.45);
+}
+
+
+.radar-progress-fill {
+    width: 0;
+}
+
+
+/* =========================================================
+   SUMMARY ROW
+   ========================================================= */
+
+.radar-summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 16px 0;
+
+    border-bottom:
+        1px solid rgba(217, 154, 74, 0.15);
+
+    color: #d9c5aa;
+}
+
+
+.radar-summary-row:last-child {
+    border-bottom: none;
+}
+
+
+.radar-summary-row strong {
+    color: #e7b66a;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.radar-navigation {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 30px 0;
+}
+
+
+.radar-navigation a {
+    color: #c9a784;
+
+    text-decoration: none;
+
+    border:
+        1px solid rgba(184, 117, 56, 0.22);
+
+    padding: 9px 14px;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.radar-navigation a:hover {
+    color: #edc79f;
+
+    border-color: #bd7940;
+
+    background:
+        rgba(136, 67, 24, 0.18);
+}
+
+
+/* =========================================================
+   INFO / EMPTY MESSAGE
+   ========================================================= */
+
+.radar-message {
+    text-align: center;
+
+    padding: 35px;
+
+    color: #8f7660;
+
+    border:
+        1px solid rgba(184, 117, 56, 0.15);
+
+    background:
+        rgba(20, 10, 5, 0.45);
+}
+
+
+.radar-success-message {
+    border-left:
+        3px solid #b98a4b;
+}
+
+
+.radar-error-message {
+    border-left:
+        3px solid #9d4d38;
+}
+
+
+/* =========================================================
+   ALGORITHM PARAMETERS
+   ========================================================= */
+
+.radar-admin-description {
+    color: #c4b299;
+
+    line-height: 1.7;
+
+    margin: 0 0 15px 0;
+}
+
+
+.radar-admin-description:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   ADMIN CONFIGURATION
+   ========================================================= */
+
+.radar-config-row {
+    margin-bottom: 20px;
+}
+
+
+.radar-config-row label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #d8b17d;
+
+    font-size: 11px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.radar-config-row input {
+    width: 100%;
+
+    padding: 12px;
+
+    background:
+        rgba(5, 4, 3, 0.90);
+
+    border:
+        1px solid rgba(184, 117, 56, 0.28);
+
+    color: #e5ceb5;
+
+    outline: none;
+}
+
+
+.radar-config-row input:focus {
+    border-color: #c9894c;
+
+    box-shadow:
+        0 0 15px rgba(201, 137, 76, 0.12);
+}
+
+
+.radar-config-row small {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #8f7760;
+
+    font-size: 10px;
+}
+
+
+.radar-report-section .radar-form {
+    margin: 25px auto;
+}
+
+
+.radar-report-section .radar-cards {
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   AUDIT LOG
+   ========================================================= */
+
+.radar-audit-action {
+    color: #e5b86a;
+
+    font-weight: 600;
+
+    letter-spacing: 0.2px;
+}
+
+
+.radar-empty-state {
+    text-align: center;
+
+    padding: 30px !important;
+
+    color: #a99880;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   LOGIN / REGISTRATION
+   ========================================================= */
+
+.radar-auth-panel {
+    max-width: 520px;
+
+    margin: 0 auto;
+}
+
+
+.radar-form-group {
+    margin-bottom: 20px;
+}
+
+
+.radar-form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #e5b86a;
+
+    font-weight: 600;
+
+    letter-spacing: 0.5px;
+}
+
+
+.radar-form-group input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border:
+        1px solid #5d472d;
+
+    border-radius: 6px;
+
+    background:
+        rgba(12, 9, 6, 0.9);
+
+    color: #f4ead9;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.25s ease;
+}
+
+
+.radar-form-group input::placeholder {
+    color: #766550;
+}
+
+
+.radar-form-group input:focus {
+    border-color: #c88a3d;
+
+    box-shadow:
+        0 0 12px rgba(200, 138, 61, 0.25);
+}
+
+
+.radar-register-section {
+    margin-top: 28px;
+
+    padding-top: 22px;
+
+    border-top:
+        1px solid rgba(150, 110, 65, 0.25);
+
+    text-align: center;
+}
+
+
+.radar-register-section p {
+    color: #a99880;
+
+    margin-bottom: 14px;
+}
+
+
+.radar-register-section .radar-button {
+    display: inline-block;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .radar-cards {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .radar-report-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .radar-summary-row {
+        gap: 15px;
+    }
+
+    .radar-report-value {
+        font-size: 24px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .radar-header {
+        padding-top: 35px;
+    }
+
+    .radar-title {
+        font-size: 58px;
+
+        letter-spacing: 0.08em !important;
+    }
+
+    .radar-subtitle {
+        font-size: 10px;
+
+        letter-spacing: 3px;
+
+        line-height: 2;
+    }
+
+    .radar-subtitle::before,
+    .radar-subtitle::after {
+        display: none;
+    }
+
+    .radar-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .radar-panel {
+        padding: 20px;
+    }
+
+    .radar-auth-panel {
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+    .radar-navigation {
+        flex-direction: column;
+    }
+
+    .radar-navigation .radar-button {
+        width: 100%;
+
+        text-align: center;
+
+        box-sizing: border-box;
+    }
+
+    .radar-servlet-content {
+        width: 96%;
+    }
+
+    .radar-servlet-panel {
+        padding: 18px;
+    }
+
+    .radar-servlet-header h1 {
+        font-family:
+            'Cinzel',
+            Georgia,
+            'Times New Roman',
+            serif !important;
+
+        font-size: 42px;
+
+        font-weight: 400 !important;
+
+        letter-spacing: 0.08em !important;
+    }
+
+    .radar-report-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .radar-navigation a {
+        text-align: center;
+    }
+
+}
+
+/* =========================================================
+   FINAL RADAR HEADING OVERRIDE
+   ========================================================= */
+
+.radar-title {
+    font-family: 'Cinzel', Georgia, 'Times New Roman', serif !important;
+
+    font-size: clamp(70px, 12vw, 150px) !important;
+
+    font-weight: 500 !important;
+
+    letter-spacing: 0.12em !important;
+
+    text-transform: uppercase !important;
+
+    color: #e7b978 !important;
+
+    line-height: 0.9 !important;
+
+    text-shadow:
+        0 0 5px rgba(231, 185, 120, 0.65),
+        0 0 18px rgba(190, 120, 55, 0.30),
+        0 0 35px rgba(150, 80, 30, 0.15) !important;
+}
+
+
+/* Servlet pages */
+
+.radar-servlet-header h1 {
+    font-family: 'Cinzel', Georgia, 'Times New Roman', serif !important;
+
+    font-weight: 500 !important;
+
+    letter-spacing: 0.12em !important;
+
+    text-transform: uppercase !important;
+
+    color: #e4b983 !important;
+}
+
+/* =========================================================
+   REPORTS - DYNAMIC FRAUD RULE PROGRESS BARS
+   ========================================================= */
+
+.radar-progress {
+    width: 100%;
+    height: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(210, 160, 90, 0.28);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.radar-progress .radar-progress-fill {
+    display: block;
+    height: 100%;
+    max-width: 100%;
+    width: auto;
+    border-radius: 999px;
+    background: linear-gradient(
+        90deg,
+        #8b5428,
+        #e7b978
+    );
+    box-shadow:
+        0 0 8px rgba(231, 185, 120, 0.35);
+    transition: width 0.5s ease;
+}

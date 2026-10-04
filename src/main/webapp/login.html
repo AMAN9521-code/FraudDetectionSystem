@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RADAR - Login</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="radar-servlet-page">
+
+    <div class="radar-glow"></div>
+
+    <header class="radar-servlet-header">
+
+        <div>
+            <h1 class="radar-title">RADAR</h1>
+
+            <p class="radar-subtitle">
+                RISK ANALYSIS AND DETECTION OF ANONYMOUS RESPONSE
+            </p>
+        </div>
+
+    </header>
+
+    <main class="radar-servlet-content">
+
+        <section class="radar-servlet-panel radar-auth-panel">
+
+            <h2 class="radar-page-title">
+                Secure Login
+            </h2>
+
+            <p class="radar-admin-description">
+                Access the RADAR fraud detection system.
+            </p>
+
+            <form action="login"
+                  method="post"
+                  class="radar-form">
+
+                <div class="radar-form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        maxlength="150"
+                        required>
+
+                </div>
+
+                <div class="radar-form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+                <button type="submit"
+                        class="radar-button">
+                    LOGIN
+                </button>
+
+            </form>
+
+            <div class="radar-register-section">
+
+                <p>
+                    Don't have an account?
+                </p>
+
+                <a href="register.html"
+                   class="radar-button radar-button-secondary">
+                    REGISTER AS USER
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="radar-footer">
+        RADAR • Secure Fraud Detection System
+    </footer>
+
+</body>
+</html>
