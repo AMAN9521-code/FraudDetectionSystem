@@ -6,8 +6,8 @@ COPY pom.xml .
 
 COPY src ./src
 
-RUN mvn clean package -DskipTests
-
+RUN echo "RADAR FRESH BUILD - 2026-10-04" && \
+    mvn clean package -DskipTests
 
 FROM tomcat:10.1-jdk17-temurin
 

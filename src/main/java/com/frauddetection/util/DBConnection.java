@@ -27,7 +27,35 @@ public class DBConnection {
         }
 
         /*
-         * Railway MySQL connection
+         * Railway connection using MYSQL_URL.
+         */
+        String mysqlUrl = System.getenv("MYSQL_URL");
+
+        if (mysqlUrl != null && !mysqlUrl.isBlank()) {
+
+            if (mysqlUrl.startsWith("mysql://")) {
+                mysqlUrl = "jdbc:" + mysqlUrl;
+            }
+
+            if (mysqlUrl.contains("?")) {
+                mysqlUrl +=
+                        "&useSSL=false" +
+                        "&allowPublicKeyRetrieval=true" +
+                        "&serverTimezone=UTC" +
+                        "&connectTimeout=10000";
+            } else {
+                mysqlUrl +=
+                        "?useSSL=false" +
+                        "&allowPublicKeyRetrieval=true" +
+                        "&serverTimezone=UTC" +
+                        "&connectTimeout=10000";
+            }
+
+            return DriverManager.getConnection(mysqlUrl);
+        }
+
+        /*
+         * Fallback to Railway individual variables.
          */
         String host = System.getenv("MYSQLHOST");
         String port = System.getenv("MYSQLPORT");
@@ -41,27 +69,27 @@ public class DBConnection {
                 && user != null && !user.isBlank()
                 && password != null && !password.isBlank()) {
 
-            String railwayUrl =
-                    "jdbc:mysql://"
-                    + host
-                    + ":"
-                    + port
-                    + "/"
-                    + database
-                    + "?useSSL=false"
-                    + "&allowPublicKeyRetrieval=true"
-                    + "&serverTimezone=UTC"
-                    + "&connectTimeout=10000";
+            String url =
+                    "jdbc:mysql://" +
+                    host +
+                    ":" +
+                    port +
+                    "/" +
+                    database +
+                    "?useSSL=false" +
+                    "&allowPublicKeyRetrieval=true" +
+                    "&serverTimezone=UTC" +
+                    "&connectTimeout=10000";
 
             return DriverManager.getConnection(
-                    railwayUrl,
+                    url,
                     user,
                     password
             );
         }
 
         /*
-         * Local development fallback
+         * Local development fallback.
          */
         return DriverManager.getConnection(
                 LOCAL_URL,
