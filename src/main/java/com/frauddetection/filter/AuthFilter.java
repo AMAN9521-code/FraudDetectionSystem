@@ -18,13 +18,14 @@ import java.io.IOException;
         "/transaction",
         "/transaction-history",
         "/fraud-alerts",
+        "/alerts",
+        "/import-transactions",
         "/review-alert",
         "/reports",
         "/admin",
         "/update-config",
         "/algorithm-params",
         "/update-algorithm-params",
-        "/audit-log"
         "/audit-log",
         "/admin-users"
 })
