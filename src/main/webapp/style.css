@@ -1992,3 +1992,12 @@ body > footer {
 @media (max-width: 600px) {
   html::before { opacity: 0.28; }   /* lighter on phones */
 }
+
+html::before {
+  opacity: 0.6;
+}
+
+.radar-panel,
+.radar-servlet-panel {
+  background: rgba(18, 9, 4, 0.55);
+}
