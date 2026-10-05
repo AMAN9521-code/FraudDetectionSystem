@@ -1770,3 +1770,16 @@ body.radar-servlet-page {
         0 0 8px rgba(231, 185, 120, 0.35);
     transition: width 0.5s ease;
 }
+
+
+.brand-text {
+  font-family: 'Michroma', sans-serif;
+  font-size: 4rem;
+  letter-spacing: 0.6em;
+  text-align: center;
+  background: linear-gradient(180deg, #e8b07a, #a8672f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+body { background: #000; }
