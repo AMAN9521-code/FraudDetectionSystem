@@ -25,6 +25,24 @@ public class LoginServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
+        // ==========================================
+        // ALREADY LOGGED IN? Don't let a second login
+        // overwrite the active session (e.g. admin -> user).
+        // ==========================================
+
+        HttpSession existingSession =
+                request.getSession(false);
+
+        if (existingSession != null &&
+                existingSession.getAttribute("userId") != null) {
+
+            response.sendRedirect(
+                    "dashboard.html"
+            );
+
+            return;
+        }
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
