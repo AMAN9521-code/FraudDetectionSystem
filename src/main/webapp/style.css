@@ -1783,3 +1783,212 @@ body.radar-servlet-page {
   color: transparent;
 }
 body { background: #000; }
+
+
+/* =====================================================
+   RADAR FX - animated radar background + UI effects
+   Paste at the BOTTOM of src/main/webapp/style.css
+   Pure CSS: no images, no GIF, no extra requests.
+   ===================================================== */
+
+:root {
+  --fx-bronze: 214, 140, 70;
+  --fx-light: 232, 176, 122;
+}
+
+/* ---------- 1. ROTATING RADAR SWEEP (behind everything) ---------- */
+html::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 135vmin;
+  height: 135vmin;
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    rgba(var(--fx-bronze), 0) 0deg,
+    rgba(var(--fx-bronze), 0) 292deg,
+    rgba(var(--fx-bronze), 0.16) 340deg,
+    rgba(var(--fx-light), 0.50) 360deg
+  );
+  -webkit-mask: radial-gradient(circle, #000 0 62%, transparent 71%);
+          mask: radial-gradient(circle, #000 0 62%, transparent 71%);
+  opacity: 0.38;
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: fxSweep 9s linear infinite;
+}
+
+/* ---------- 2. RINGS + CROSSHAIR + BLIPS (breathing) ---------- */
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 63% 38%, rgba(var(--fx-light), 0.95) 0 3px, transparent 4px),
+    radial-gradient(circle at 36% 62%, rgba(var(--fx-light), 0.80) 0 2px, transparent 3px),
+    radial-gradient(circle at 54% 70%, rgba(var(--fx-light), 0.70) 0 2px, transparent 3px),
+    linear-gradient(rgba(var(--fx-bronze), 0.14), rgba(var(--fx-bronze), 0.14)) center / 1px 100% no-repeat,
+    linear-gradient(rgba(var(--fx-bronze), 0.14), rgba(var(--fx-bronze), 0.14)) center / 100% 1px no-repeat,
+    repeating-radial-gradient(circle at center, transparent 0 11vmin, rgba(var(--fx-bronze), 0.14) 11vmin calc(11vmin + 1px));
+  animation: fxBreathe 4.5s ease-in-out infinite;
+}
+
+/* keep real content above the radar layers */
+body > header,
+body > main,
+body > footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------- 3. PANELS: fade in + glass look ---------- */
+.radar-panel,
+.radar-servlet-panel {
+  animation: fxFadeIn 0.9s ease both;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* ---------- 4. TITLE: slow bronze shimmer ---------- */
+.radar-title {
+  background: linear-gradient(90deg, #a8672f, #f3cf9d, #a8672f);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  animation: fxShimmer 7s linear infinite;
+  filter: drop-shadow(0 0 14px rgba(var(--fx-bronze), 0.35));
+}
+
+/* ---------- 5. CARDS: staggered rise-in + hover lift ---------- */
+.radar-card {
+  position: relative;
+  overflow: hidden;
+  animation: fxRise 0.7s ease both;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.radar-card:nth-child(1) { animation-delay: 0.10s; }
+.radar-card:nth-child(2) { animation-delay: 0.22s; }
+.radar-card:nth-child(3) { animation-delay: 0.34s; }
+.radar-card:nth-child(4) { animation-delay: 0.46s; }
+.radar-card:nth-child(5) { animation-delay: 0.58s; }
+
+.radar-card::before {            /* scanning line on hover */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(var(--fx-light), 0.9), transparent);
+  opacity: 0;
+}
+.radar-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(var(--fx-light), 0.55);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55), 0 0 26px rgba(var(--fx-bronze), 0.22);
+}
+.radar-card:hover::before {
+  opacity: 1;
+  animation: fxScan 1.4s linear infinite;
+}
+
+/* ---------- 6. BUTTONS: shimmer sweep on hover ---------- */
+.radar-button,
+.radar-button-secondary,
+.radar-servlet-button,
+.radar-logout {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.radar-button::after,
+.radar-button-secondary::after,
+.radar-servlet-button::after,
+.radar-logout::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 235, 205, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+.radar-button:hover,
+.radar-button-secondary:hover,
+.radar-servlet-button:hover,
+.radar-logout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(var(--fx-bronze), 0.45);
+}
+.radar-button:hover::after,
+.radar-button-secondary:hover::after,
+.radar-servlet-button:hover::after,
+.radar-logout:hover::after {
+  transform: translateX(120%);
+}
+
+/* ---------- 7. TABLES: row fade-in + hover highlight ---------- */
+.radar-servlet-table tbody tr {
+  animation: fxFadeIn 0.6s ease both;
+  transition: background 0.2s ease;
+}
+.radar-servlet-table tbody tr:nth-child(-n+10) { animation-delay: 0.15s; }
+.radar-servlet-table tbody tr:hover {
+  background: rgba(var(--fx-bronze), 0.12);
+}
+
+/* ---------- 8. FLAGGED ITEMS: gentle alert pulse ---------- */
+.flagged {
+  animation: fxAlert 2s ease-in-out infinite;
+}
+
+/* ---------- KEYFRAMES ---------- */
+@keyframes fxSweep {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes fxBreathe {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+@keyframes fxFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fxRise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fxShimmer {
+  from { background-position: 0% center; }
+  to   { background-position: 200% center; }
+}
+@keyframes fxScan {
+  from { top: -2px; }
+  to   { top: 100%; }
+}
+@keyframes fxAlert {
+  0%, 100% { text-shadow: 0 0 0 rgba(255, 90, 70, 0); }
+  50%      { text-shadow: 0 0 10px rgba(255, 90, 70, 0.75); }
+}
+
+/* ---------- ACCESSIBILITY / PERFORMANCE ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html::before,
+  html::after,
+  .radar-title,
+  .radar-card,
+  .radar-panel,
+  .radar-servlet-panel,
+  .flagged {
+    animation: none !important;
+  }
+}
+@media (max-width: 600px) {
+  html::before { opacity: 0.28; }   /* lighter on phones */
+}
