@@ -16,6 +16,14 @@
     <link rel="stylesheet"
           href="style.css">
 
+    <style>
+        /* Admin-only items are hidden by default.
+           They are shown only after the server confirms the visitor is an ADMIN. */
+        body:not(.is-admin) .admin-only {
+            display: none !important;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -30,9 +38,9 @@
 
 <header class="radar-header">
 
-    <h1 style="margin:0;text-align:center;">
-  <img src="/images/radar-logo.svg" alt="RADAR" style="width:min(520px,90%);height:auto;">
-</h1>
+    <h1 class="radar-title">
+        RADAR
+    </h1>
 
     <div class="radar-subtitle">
         Risk Analysis and Detection of Anonymous Response
@@ -102,23 +110,23 @@
 
             <!-- IMPORT TRANSACTION HISTORY -->
 
-<div class="radar-card">
+            <div class="radar-card">
 
-    <h2>
-        Import History
-    </h2>
+                <h2>
+                    Import History
+                </h2>
 
-    <p>
-        Upload transaction-history CSV data and let RADAR
-        analyze the records automatically.
-    </p>
+                <p>
+                    Upload transaction-history CSV data and let RADAR
+                    analyze the records automatically.
+                </p>
 
-    <a class="radar-button"
-       href="import-transactions">
-        Import CSV
-    </a>
+                <a class="radar-button"
+                   href="import-transactions">
+                    Import CSV
+                </a>
 
-</div>
+            </div>
 
 
             <!-- FRAUD ALERTS -->
@@ -163,9 +171,9 @@
             </div>
 
 
-            <!-- ADMIN -->
+            <!-- ADMIN (visible to administrators only) -->
 
-            <div class="radar-card">
+            <div class="radar-card admin-only">
 
                 <h2>
                     Administration
@@ -207,6 +215,19 @@
 
 </footer>
 
+
+<script>
+    // Ask the server who is logged in. Only admins get the admin items.
+    // If this fails for any reason, the admin items simply stay hidden.
+    fetch('session-info', { credentials: 'same-origin' })
+        .then(function (response) { return response.json(); })
+        .then(function (info) {
+            if (info.role === 'ADMIN') {
+                document.body.classList.add('is-admin');
+            }
+        })
+        .catch(function () { });
+</script>
 
 </body>
 
