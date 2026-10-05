@@ -455,6 +455,22 @@ public class AdminServlet extends HttpServlet {
                                                 performance.
                                             </p>
 
+                                            <div class="radar-card">
+    <h2>
+        Users &amp; Logins
+    </h2>
+    <p>
+        View registered users,
+        login activity and
+        account details.
+    </p>
+    <a
+        class="radar-button"
+        href="admin-users">
+        View Users
+    </a>
+</div>
+
                                             <a
                                                 class="radar-button"
                                                 href="reports">
