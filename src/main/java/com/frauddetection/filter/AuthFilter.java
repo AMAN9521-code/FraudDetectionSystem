@@ -25,6 +25,8 @@ import java.io.IOException;
         "/algorithm-params",
         "/update-algorithm-params",
         "/audit-log"
+        "/audit-log",
+        "/admin-users"
 })
 public class AuthFilter implements Filter {
 

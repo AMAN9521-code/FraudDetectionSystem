@@ -416,6 +416,7 @@ public class AdminServlet extends HttpServlet {
                                                 View Audit Log
 
                                             </a>
+                                            <a class="radar-servlet-button" href="admin-users">Users &amp; Logins</a>
 
                                         </div>
 

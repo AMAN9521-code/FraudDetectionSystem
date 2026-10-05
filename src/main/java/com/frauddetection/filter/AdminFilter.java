@@ -16,6 +16,8 @@ import java.io.IOException;
         "/update-algorithm-params",
         "/audit-log",
         "/review-alert"
+        "/audit-log",
+        "/admin-users"
 })
 public class AdminFilter implements Filter {
 

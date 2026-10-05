@@ -103,6 +103,16 @@ public class LoginServlet extends HttpServlet {
                 }
 
                 // ==========================================
+                // RECORD LOGIN (login_history + last_login)
+                // ==========================================
+
+                recordLogin(
+                        connection,
+                        resultSet.getInt("user_id"),
+                        getClientIp(request)
+                );
+
+                // ==========================================
                 // CREATE SESSION
                 // ==========================================
 
@@ -151,6 +161,60 @@ public class LoginServlet extends HttpServlet {
                     "<a href='login.html'>Back to Login</a>"
             );
         }
+    }
+
+    // ==========================================
+    // SAVE LOGIN ACTIVITY
+    // A logging problem must never block a login,
+    // so any error here is printed and ignored.
+    // ==========================================
+
+    private void recordLogin(
+            Connection connection,
+            int userId,
+            String ipAddress) {
+
+        try (PreparedStatement historyStatement =
+                     connection.prepareStatement(
+                             "INSERT INTO login_history " +
+                             "(user_id, ip_address) VALUES (?, ?)")) {
+
+            historyStatement.setInt(1, userId);
+            historyStatement.setString(2, ipAddress);
+            historyStatement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try (PreparedStatement updateStatement =
+                     connection.prepareStatement(
+                             "UPDATE users " +
+                             "SET last_login = CURRENT_TIMESTAMP " +
+                             "WHERE user_id = ?")) {
+
+            updateStatement.setInt(1, userId);
+            updateStatement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ==========================================
+    // CLIENT IP (works behind Railway's proxy)
+    // ==========================================
+
+    private String getClientIp(HttpServletRequest request) {
+
+        String forwarded =
+                request.getHeader("X-Forwarded-For");
+
+        if (forwarded != null && !forwarded.isBlank()) {
+            return forwarded.split(",")[0].trim();
+        }
+
+        return request.getRemoteAddr();
     }
 
     private void showInvalidLogin(
