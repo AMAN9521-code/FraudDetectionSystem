@@ -480,6 +480,7 @@ try {
     System.out.println(
             "RADAR ML service unavailable. "
                     + "Using rule-based risk only."
+                    + mlException
     );
 }
 
