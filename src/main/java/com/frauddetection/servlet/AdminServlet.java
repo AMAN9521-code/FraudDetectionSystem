@@ -418,6 +418,51 @@ public class AdminServlet extends HttpServlet {
                                             </a>
                                             <a class="radar-servlet-button" href="admin-users">Users &amp; Logins</a>
 
+                                                                            <div class="radar-cards">
+
+
+                                        <div class="radar-card">
+
+                                            <h2>
+                                                Algorithm Parameters
+                                            </h2>
+
+                                            <p>
+                                                View and modify the adaptive
+                                                fraud detection rule weights.
+                                            </p>
+
+                                            <a
+                                                class="radar-button"
+                                                href="algorithm-params">
+
+                                                Manage Parameters
+
+                                            </a>
+
+                                        </div>
+
+
+                                        <div class="radar-card">
+
+                                            <h2>
+                                                Audit Log
+                                            </h2>
+
+                                            <p>
+                                                Monitor administrative actions,
+                                                configuration changes and
+                                                system activity.
+                                            </p>
+
+                                            <a
+                                                class="radar-button"
+                                                href="audit-log">
+
+                                                View Audit Log
+
+                                            </a>
+
                                         </div>
 
 
@@ -455,22 +500,6 @@ public class AdminServlet extends HttpServlet {
                                                 performance.
                                             </p>
 
-                                            <div class="radar-card">
-    <h2>
-        Users &amp; Logins
-    </h2>
-    <p>
-        View registered users,
-        login activity and
-        account details.
-    </p>
-    <a
-        class="radar-button"
-        href="admin-users">
-        View Users
-    </a>
-</div>
-
                                             <a
                                                 class="radar-button"
                                                 href="reports">
@@ -482,10 +511,30 @@ public class AdminServlet extends HttpServlet {
                                         </div>
 
 
+                                        <div class="radar-card">
+
+                                            <h2>
+                                                Users &amp; Logins
+                                            </h2>
+
+                                            <p>
+                                                View registered users,
+                                                login activity and
+                                                account details.
+                                            </p>
+
+                                            <a
+                                                class="radar-button"
+                                                href="admin-users">
+
+                                                View Users
+
+                                            </a>
+
+                                        </div>
+
+
                                     </div>
-
-                                </div>
-
 
                                 <div class="radar-navigation">
 
