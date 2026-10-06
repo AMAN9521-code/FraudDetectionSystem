@@ -1,4 +1,4 @@
-﻿# RADAR – AI-Powered Fraud Detection System
+# RADAR – AI-Powered Fraud Detection System
 
 **R**isk **A**nalysis and **D**etection of **A**nonymous **R**esponse
 *Detect / Analyze / Prevent*
@@ -41,7 +41,7 @@ A Java web application that monitors financial transactions, scores each one for
 Each transaction is checked by four rules, each producing a score from 0 to 100%:
 
 |   Rule   |                  What it checks                          | Default         |
-|----------|------------------------------------------------------------|-----------------|
+|----------|----------------------------------------------------------|-----------------|
 | Amount   | Amount compared with the admin-set threshold             | ₹50,000         |
 | Velocity | Number of transactions by the user in a recent window    | 5 in 10 minutes |
 | Location | Whether the location is new for this user                | –               |
@@ -85,6 +85,29 @@ To run locally you need:
 ---
 
 ## 5. Project Structure
+
+```
+FraudDetectionSystem/
+├── pom.xml                         # Maven build file (WAR packaging)
+├── Dockerfile                      # Two-stage build: Maven -> Tomcat 10.1
+├── docker-entrypoint.sh            # Container start script
+├── database/
+│   └── schema.sql                  # Database tables and setup
+├── screenshots/                    # Screenshots used in this README
+└── src/main/
+    ├── java/com/frauddetection/
+    │   ├── servlet/                # Login, Register, Transaction, Alerts,
+    │   │                           # Reports, Admin, Audit Log, User Management...
+    │   ├── filter/                 # AuthFilter, AdminFilter
+    │   ├── service/                # FraudDetectionService (risk scoring)
+    │   └── util/                   # DBConnection
+    └── webapp/
+        ├── login.html, register.html, dashboard.html, transaction.html
+        ├── style.css               # RADAR theme and animations
+        ├── favicon.svg
+        ├── images/
+        └── WEB-INF/web.xml
+```
 
 ---
 
@@ -135,9 +158,9 @@ Passwords are stored as BCrypt hashes, so create the admin through the app:
 
 1. Open the site and **register** a new account.
 2. In MySQL, promote it to admin:
-```sql
+   ```sql
    UPDATE users SET role = 'ADMIN' WHERE email = 'your-email@example.com';
-```
+   ```
 3. Log out and log in again. The Administration card now appears on the dashboard.
 
 ---
@@ -158,9 +181,11 @@ Passwords are stored as BCrypt hashes, so create the admin through the app:
 
 ## 9. Screenshots
 
-|                 Login                |              User Dashboard             |
-|---------------------------------------|------------------------------------------|
+
+            | Login |                            | User Dashboard |
+|--------------------------------------|-----------------------------------------|
 | ![Login](https://shorturl.at/01Kig)  | ![Dashboard](https://shorturl.at/LBwkv) |
+
 
 ---
 
@@ -171,3 +196,6 @@ Passwords are stored as BCrypt hashes, so create the admin through the app:
 - Device and IP based checks
 - Charts on the reports page
 - Logging of failed login attempts
+
+
+
