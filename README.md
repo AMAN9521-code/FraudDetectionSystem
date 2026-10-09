@@ -344,16 +344,17 @@ Admin credentials are not stored in this repository. If you are a reviewer and n
 ## Limitations and Future Scope
 
 **Current limitations**
-- Detection is rule-based with statistical anomaly detection (z-score) and feedback-driven weight adjustment. It is not a trained machine-learning model.
-- Failed login attempts are not recorded yet.
-- The live demo depends on a limited Railway trial.
+- The model uses only three features (amount, merchant, location). It does not see transaction history, velocity or time of day, which the rule engine in the main application covers.
+- The dataset is small (1,500 rows) and was prepared for this project. It is not real banking data.
+- The reported scores come from one 80/20 split. The near-perfect result likely reflects an easily separable synthetic dataset and should not be read as real-world accuracy.
+- The API has no authentication, so do not expose it publicly without protection.
+
 
 **Future scope**
-- A trained ML model (for example, Random Forest through Weka or a Python service) combined with the rule score
-- Email or SMS alerts for flagged transactions
-- Device and IP-based checks
-- Charts and analytics (Chart.js)
-- Logging of failed logins and logouts, and "currently online" tracking
+- Add features such as transaction time, user history, velocity and device or IP information
+- Retrain automatically from admin-reviewed alerts (confirmed fraud and false positives) in the main application
+- Add API authentication and request validation
+- Compare other models (Gradient Boosting, XGBoost) and report cross-validated scores
 - Integration with real payment systems
 
 ---
