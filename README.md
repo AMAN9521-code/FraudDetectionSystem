@@ -344,7 +344,7 @@ Admin credentials are not stored in this repository. If you are a reviewer and n
 ## Limitations and Future Scope
 
 **Current limitations**
-- Detection is rule-based with statistical anomaly detection (z-score) and feedback-driven weight adjustment. It is not a trained machine-learning model.
+- Rule-based + statistical detection in Java, combined with a trained Random Forest ML service in Python.
 - Failed login attempts are not recorded yet.
 - The live demo depends on a limited Railway trial.
 
