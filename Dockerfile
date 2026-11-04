@@ -3,11 +3,11 @@ FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 COPY pom.xml .
-
+COPY settings.xml .
 COPY src ./src
 
 RUN echo "RADAR FRESH BUILD - 2026-10-04" && \
-    mvn package -DskipTests
+mvn -s settings.xml -B -ntp package -DskipTests
 
 FROM tomcat:10.1-jdk17-temurin
 
