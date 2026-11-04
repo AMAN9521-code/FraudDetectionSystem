@@ -74,13 +74,13 @@ public class DBConnection {
 
             if (jdbcUrl.contains("?")) {
                 jdbcUrl +=
-                        "&useSSL=false" +
+                        "&sslMode=REQUIRED" +
                         "&allowPublicKeyRetrieval=true" +
                         "&serverTimezone=UTC" +
                         "&connectTimeout=10000";
             } else {
                 jdbcUrl +=
-                        "?useSSL=false" +
+                        "?sslMode=REQUIRED" +
                         "&allowPublicKeyRetrieval=true" +
                         "&serverTimezone=UTC" +
                         "&connectTimeout=10000";
@@ -120,7 +120,7 @@ public class DBConnection {
                     port +
                     "/" +
                     database +
-                    "?useSSL=false" +
+                    "?sslMode=REQUIRED" +
                     "&allowPublicKeyRetrieval=true" +
                     "&serverTimezone=UTC" +
                     "&connectTimeout=10000";
