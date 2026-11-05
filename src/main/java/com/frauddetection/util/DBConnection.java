@@ -92,11 +92,11 @@ public class DBConnection {
         /*
          * Fallback to Railway individual variables.
          */
-        String host = System.getenv("MYSQLHOST");
-        String port = System.getenv("MYSQLPORT");
-        String database = System.getenv("MYSQLDATABASE");
-        String user = System.getenv("MYSQLUSER");
-        String password = System.getenv("MYSQLPASSWORD");
+           String host = System.getenv("DB_HOST");
+           String port = System.getenv("DB_PORT");
+           String database = System.getenv("DB_NAME");
+           String user = System.getenv("DB_USER");
+           String password = System.getenv("DB_PASSWORD");
 
         if (host != null && !host.isBlank()
                 && port != null && !port.isBlank()
