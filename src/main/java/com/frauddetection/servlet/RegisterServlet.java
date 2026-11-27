@@ -1,3 +1,4 @@
+
 package com.frauddetection.servlet;
 
 import com.frauddetection.util.DBConnection;
@@ -40,13 +41,16 @@ public class RegisterServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String confirmPassword =
+                request.getParameter("confirmPassword");
 
         name = name == null ? "" : name.trim();
-        email = email == null ? "" : email.trim().toLowerCase();
+        email = email == null ? "" :
+                email.trim().toLowerCase();
 
         response.setContentType("text/html;charset=UTF-8");
 
+        // Validate registration fields
         if (name.isEmpty()
                 || email.isEmpty()
                 || password == null
@@ -78,7 +82,9 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+        if (!email.matches(
+                "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+
             showError(
                     response,
                     request,
@@ -126,13 +132,11 @@ public class RegisterServlet extends HttpServlet {
                              checkStatement.executeQuery()) {
 
                     if (resultSet.next()) {
-
                         showError(
                                 response,
                                 request,
                                 "An account with this email already exists."
                         );
-
                         return;
                     }
                 }
@@ -160,7 +164,28 @@ public class RegisterServlet extends HttpServlet {
 
         } catch (SQLException e) {
 
+            // Print detailed database error in Render logs
+            System.err.println(
+                    "========== REGISTRATION DATABASE ERROR =========="
+            );
+
+            System.err.println(
+                    "Error Message: " + e.getMessage()
+            );
+
+            System.err.println(
+                    "SQL State: " + e.getSQLState()
+            );
+
+            System.err.println(
+                    "Error Code: " + e.getErrorCode()
+            );
+
             e.printStackTrace();
+
+            System.err.println(
+                    "=================================================="
+            );
 
             showError(
                     response,
@@ -170,6 +195,7 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
+    // Registration success page
     private void showSuccess(
             HttpServletResponse response,
             HttpServletRequest request)
@@ -244,11 +270,12 @@ public class RegisterServlet extends HttpServlet {
                 </body>
                 </html>
                 """.formatted(
-                        contextPath,
-                        contextPath
-                ));
+                contextPath,
+                contextPath
+        ));
     }
 
+    // Registration error page
     private void showError(
             HttpServletResponse response,
             HttpServletRequest request,
@@ -324,13 +351,14 @@ public class RegisterServlet extends HttpServlet {
                 </body>
                 </html>
                 """.formatted(
-                        contextPath,
-                        escapeHtml(message),
-                        contextPath,
-                        contextPath
-                ));
+                contextPath,
+                escapeHtml(message),
+                contextPath,
+                contextPath
+        ));
     }
 
+    // Escape HTML special characters
     private String escapeHtml(String value) {
 
         if (value == null) {
