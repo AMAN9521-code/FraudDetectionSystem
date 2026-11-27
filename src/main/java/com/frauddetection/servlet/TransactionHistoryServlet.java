@@ -152,6 +152,10 @@ public class TransactionHistoryServlet extends HttpServlet {
                                         Risk Score
                                     </th>
 
+                                    <th>
+                                        Analysis
+                                    </th>
+
                                 </tr>
 
                             </thead>
@@ -316,6 +320,21 @@ public class TransactionHistoryServlet extends HttpServlet {
                     );
 
 
+                    /* ANALYSIS LINK */
+
+                    int txnId = resultSet.getInt("transaction_id");
+
+                    out.println(
+                            "<td>"
+                            + "<a href=\"transaction-analysis?id="
+                            + txnId
+                            + "\" class=\"radar-analyse-link\">"
+                            + "Analyse"
+                            + "</a>"
+                            + "</td>"
+                    );
+
+
                     out.println("</tr>");
                 }
 
@@ -329,7 +348,7 @@ public class TransactionHistoryServlet extends HttpServlet {
                     out.println("""
                             <tr>
 
-                                <td colspan="7">
+                                <td colspan="8">
 
                                     <div class="radar-message">
 
@@ -353,7 +372,7 @@ public class TransactionHistoryServlet extends HttpServlet {
             out.println("""
                     <tr>
 
-                        <td colspan="7">
+                        <td colspan="8">
 
                             <div class="radar-message">
 

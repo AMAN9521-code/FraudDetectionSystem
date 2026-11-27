@@ -2001,3 +2001,242 @@ html::before {
 .radar-servlet-panel {
   background: rgba(18, 9, 4, 0.55);
 }
+
+
+/* =========================================================
+   TRANSACTION ANALYSIS — EXPLAINABLE AI
+   ========================================================= */
+
+/* Analyse link in transaction history table */
+
+.radar-analyse-link {
+    display: inline-block;
+    padding: 5px 12px;
+    color: #c8894e;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 1px solid rgba(184, 117, 56, 0.35);
+    transition: all 0.2s ease;
+}
+
+.radar-analyse-link:hover {
+    background: rgba(139, 76, 28, 0.25);
+    border-color: #c8894e;
+    color: #f0d4b0;
+}
+
+
+/* Analysis page card container */
+
+.radar-analysis-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30, 16, 8, 0.90),
+            rgba(10, 7, 5, 0.95)
+        );
+
+    border: 1px solid rgba(184, 117, 56, 0.20);
+
+    border-radius: 3px;
+
+    padding: 24px;
+
+    margin-bottom: 22px;
+}
+
+
+/* Section title inside analysis card */
+
+.radar-analysis-section-title {
+    margin: 0 0 18px;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: #dfb37e;
+
+    border-bottom: 1px solid rgba(184, 117, 56, 0.20);
+
+    padding-bottom: 10px;
+}
+
+
+/* Two-column detail grid */
+
+.radar-analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+}
+
+@media (max-width: 600px) {
+    .radar-analysis-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.radar-detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border-left: 2px solid rgba(184, 117, 56, 0.35);
+}
+
+.radar-detail-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #9f7a5a;
+}
+
+.radar-detail-value {
+    font-size: 14px;
+    color: #e0cbb5;
+}
+
+
+/* Overall risk gauge */
+
+.radar-risk-gauge-container {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.radar-risk-gauge-label {
+    font-size: 42px;
+    font-weight: 400;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+}
+
+.radar-risk-verdict {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 8px 20px;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+}
+
+
+/* Progress bar track */
+
+.radar-progress-track {
+    width: 100%;
+    height: 10px;
+    background: rgba(10, 7, 5, 0.9);
+    border: 1px solid rgba(184, 117, 56, 0.25);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.radar-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+}
+
+
+/* Individual factor rows */
+
+.radar-factor-row {
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(184, 117, 56, 0.10);
+}
+
+.radar-factor-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.radar-factor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.radar-factor-label {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #c0a58c;
+}
+
+.radar-factor-score {
+    font-size: 18px;
+    font-weight: 400;
+    min-width: 70px;
+    text-align: right;
+}
+
+.radar-factor-explanation {
+    margin: 8px 0 0;
+    font-size: 12px;
+    color: #9f866e;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FRAUD TREND — CHART CONTAINERS
+   ========================================================= */
+
+.radar-chart-container {
+    position: relative;
+    height: 280px;
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   ALERT STATUS BADGES
+   ========================================================= */
+
+.radar-status-open {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.45);
+    text-transform: uppercase;
+}
+
+.radar-status-fraud {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.45);
+    text-transform: uppercase;
+}
+
+.radar-status-false {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.45);
+    text-transform: uppercase;
+}
+
+.radar-risk-score {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 11px;
+    color: #e4b983;
+    border: 1px solid rgba(184, 117, 56, 0.35);
+}
