@@ -1,3 +1,4 @@
+
 package com.frauddetection.servlet;
 
 import jakarta.servlet.ServletException;
@@ -9,13 +10,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-/**
- * Tells the dashboard page whether the current visitor is an ADMIN or a USER,
- * so the page can hide admin-only cards and links.
- *
- * This is only for the UI. The real protection is AdminFilter, which blocks
- * admin URLs on the server no matter what the page shows.
- */
 @WebServlet("/session-info")
 public class SessionInfoServlet extends HttpServlet {
 
@@ -25,25 +19,63 @@ public class SessionInfoServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("Cache-Control", "no-store");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
+        // Prevent caching of session information
+        response.setHeader(
+                "Cache-Control",
+                "no-cache, no-store, must-revalidate"
+        );
+
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        // Get current session without creating a new one
         HttpSession session = request.getSession(false);
 
+        // Check login status
         if (session == null ||
                 session.getAttribute("userId") == null) {
 
-            response.getWriter().print("{\"loggedIn\":false,\"role\":\"NONE\"}");
+            response.setStatus(
+                    HttpServletResponse.SC_UNAUTHORIZED
+            );
+
+            response.getWriter().write(
+                    "{\"role\":null}"
+            );
+
             return;
         }
 
+        // Read role from current session
         String role = (String) session.getAttribute("userRole");
-        boolean isAdmin = "ADMIN".equalsIgnoreCase(role);
 
-        response.getWriter().print(
-                "{\"loggedIn\":true,\"role\":\"" +
-                (isAdmin ? "ADMIN" : "USER") +
-                "\"}"
-        );
+        if (role == null) {
+            response.setStatus(
+                    HttpServletResponse.SC_UNAUTHORIZED
+            );
+
+            response.getWriter().write(
+                    "{\"role\":null}"
+            );
+
+            return;
+        }
+
+        // Return role to dashboard
+        if ("ADMIN".equalsIgnoreCase(role)) {
+
+            response.getWriter().write(
+                    "{\"role\":\"ADMIN\"}"
+            );
+
+        } else {
+
+            response.getWriter().write(
+                    "{\"role\":\"USER\"}"
+            );
+        }
     }
 }
