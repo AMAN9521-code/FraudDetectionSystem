@@ -1,3 +1,4 @@
+
 package com.frauddetection.servlet;
 
 import jakarta.servlet.ServletException;
@@ -18,13 +19,24 @@ public class LogoutServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session =
-                request.getSession(false);
+        // Get existing session
+        HttpSession session = request.getSession(false);
 
+        // Destroy session completely
         if (session != null) {
             session.invalidate();
         }
 
+        // Prevent dashboard caching
+        response.setHeader(
+                "Cache-Control",
+                "no-cache, no-store, must-revalidate"
+        );
+
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        // Redirect to login page
         response.sendRedirect(
                 request.getContextPath() + "/login.html"
         );
