@@ -1,6 +1,6 @@
+
 package com.frauddetection.util;
 
-import java.net.URI;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,120 +21,44 @@ public class DBConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            throw new SQLException(
-                    "MySQL JDBC Driver not found",
-                    e
-            );
+            throw new SQLException("MySQL JDBC Driver not found", e);
         }
 
-        /*
-         * Railway connection using MYSQL_URL.
-         */
-        String mysqlUrl = System.getenv("MYSQL_URL");
+        // TiDB Cloud connection for Render deployment
+        String dbUrl = System.getenv("DB_URL");
+        String dbUsername = System.getenv("DB_USERNAME");
+        String dbPassword = System.getenv("DB_PASSWORD");
 
-        if (mysqlUrl != null && !mysqlUrl.isBlank()) {
-
-            System.out.println("========== RADAR DATABASE DEBUG ==========");
-            System.out.println("MYSQL_URL is present: YES");
-
-            String jdbcUrl = mysqlUrl;
-
-            if (jdbcUrl.startsWith("mysql://")) {
-                jdbcUrl = "jdbc:" + jdbcUrl;
-            }
-
-            /*
-             * Print safe connection information only.
-             * Password is never printed.
-             */
-            try {
-                URI uri = URI.create(mysqlUrl);
-
-                String host = uri.getHost();
-                int port = uri.getPort();
-
-                String database = uri.getPath();
-
-                if (database != null && database.startsWith("/")) {
-                    database = database.substring(1);
-                }
-
-                System.out.println("Database host: " + host);
-                System.out.println("Database port: " + port);
-                System.out.println("Database name: " + database);
-
-            } catch (Exception e) {
-                System.out.println(
-                        "Could not parse MYSQL_URL for diagnostics."
-                );
-            }
-
-            System.out.println("Attempting Railway MySQL connection...");
-            System.out.println("==========================================");
-
-            if (jdbcUrl.contains("?")) {
-                jdbcUrl +=
-                        "&sslMode=REQUIRED" +
-                        "&allowPublicKeyRetrieval=true" +
-                        "&serverTimezone=UTC" +
-                        "&connectTimeout=10000";
-            } else {
-                jdbcUrl +=
-                        "?sslMode=REQUIRED" +
-                        "&allowPublicKeyRetrieval=true" +
-                        "&serverTimezone=UTC" +
-                        "&connectTimeout=10000";
-            }
-
-            return DriverManager.getConnection(jdbcUrl);
-        }
-
-        /*
-         * Fallback to Railway individual variables.
-         */
-           String host = System.getenv("DB_HOST");
-           String port = System.getenv("DB_PORT");
-           String database = System.getenv("DB_NAME");
-           String user = System.getenv("DB_USER");
-           String password = System.getenv("DB_PASSWORD");
-
-        if (host != null && !host.isBlank()
-                && port != null && !port.isBlank()
-                && database != null && !database.isBlank()
-                && user != null && !user.isBlank()
-                && password != null && !password.isBlank()) {
+        if (dbUrl != null && !dbUrl.isBlank()
+                && dbUsername != null && !dbUsername.isBlank()
+                && dbPassword != null && !dbPassword.isBlank()) {
 
             System.out.println("========== RADAR DATABASE DEBUG ==========");
-            System.out.println("MYSQL_URL is present: NO");
-            System.out.println("Using individual Railway MySQL variables.");
-            System.out.println("Database host: " + host);
-            System.out.println("Database port: " + port);
-            System.out.println("Database name: " + database);
-            System.out.println("Database user: " + user);
+            System.out.println("Using TiDB Cloud database connection.");
+            System.out.println("Database URL: " + dbUrl.replaceAll(
+                    "(?i)(password=)[^&]*", "$1****"
+            ));
+            System.out.println("Database username: " + dbUsername);
             System.out.println("==========================================");
-
-            String url =
-                    "jdbc:mysql://" +
-                    host +
-                    ":" +
-                    port +
-                    "/" +
-                    database +
-                    "?sslMode=REQUIRED" +
-                    "&allowPublicKeyRetrieval=true" +
-                    "&serverTimezone=UTC" +
-                    "&connectTimeout=10000";
 
             return DriverManager.getConnection(
-                    url,
-                    user,
-                    password
+                    dbUrl,
+                    dbUsername,
+                    dbPassword
             );
         }
 
-        /*
-         * Local development fallback.
-         */
+        // Never fall back to localhost on Render
+        if (System.getenv("RENDER") != null
+                || System.getenv("RENDER_SERVICE_ID") != null) {
+
+            throw new SQLException(
+                    "TiDB configuration missing. Check DB_URL, "
+                    + "DB_USERNAME and DB_PASSWORD in Render."
+            );
+        }
+
+        // Local development fallback
         System.out.println(
                 "RADAR DATABASE DEBUG: Using LOCAL database connection."
         );
