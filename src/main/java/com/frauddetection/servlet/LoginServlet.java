@@ -1,3 +1,4 @@
+
 package com.frauddetection.servlet;
 
 import com.frauddetection.util.DBConnection;
@@ -25,72 +26,41 @@ public class LoginServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        // ==========================================
-        // ALREADY LOGGED IN? Don't let a second login
-        // overwrite the active session (e.g. admin -> user).
-        // ==========================================
+        // Clear previous session before processing a new login
+        HttpSession existingSession = request.getSession(false);
 
-        HttpSession existingSession =
-                request.getSession(false);
-
-        if (existingSession != null &&
-                existingSession.getAttribute("userId") != null) {
-
-            response.sendRedirect(
-                    "dashboard.html"
-            );
-
-            return;
+        if (existingSession != null) {
+            existingSession.invalidate();
         }
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // ==========================================
-        // INPUT VALIDATION
-        // ==========================================
-
+        // Input validation
         if (email == null ||
                 password == null ||
                 email.trim().isEmpty() ||
                 password.isEmpty()) {
 
-            response.setContentType(
-                    "text/html;charset=UTF-8"
-            );
-
-            response.getWriter().println(
-                    "<h2>Invalid email or password</h2>" +
-                    "<a href='login.html'>Try Again</a>"
-            );
-
+            showInvalidLogin(response);
             return;
         }
 
         email = email.trim();
 
-        // ==========================================
-        // FIND USER BY EMAIL
-        // ==========================================
-
         String sql =
-                "SELECT user_id, name, email, " +
-                "password_hash, role " +
-                "FROM users " +
-                "WHERE email = ?";
+                "SELECT user_id, name, email, password_hash, role " +
+                "FROM users WHERE email = ?";
 
-        try (Connection connection =
-                     DBConnection.getConnection();
+        try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
             statement.setString(1, email);
 
-            try (ResultSet resultSet =
-                         statement.executeQuery()) {
+            try (ResultSet resultSet = statement.executeQuery()) {
 
                 if (!resultSet.next()) {
-
                     showInvalidLogin(response);
                     return;
                 }
@@ -98,70 +68,55 @@ public class LoginServlet extends HttpServlet {
                 String storedPasswordHash =
                         resultSet.getString("password_hash");
 
-                // ==========================================
-                // VERIFY PASSWORD
-                // ==========================================
-
-                boolean passwordMatches = false;
+                // Verify password
+                boolean passwordMatches;
 
                 try {
-                    passwordMatches =
-                            BCrypt.checkpw(
-                                    password,
-                                    storedPasswordHash
-                            );
-                } catch (Exception ignored) {
+                    passwordMatches = BCrypt.checkpw(
+                            password,
+                            storedPasswordHash
+                    );
+                } catch (Exception e) {
                     passwordMatches = false;
                 }
 
                 if (!passwordMatches) {
-
                     showInvalidLogin(response);
                     return;
                 }
 
-                // ==========================================
-                // RECORD LOGIN (login_history + last_login)
-                // ==========================================
+                // Read account information from database
+                int userId = resultSet.getInt("user_id");
+                String name = resultSet.getString("name");
+                String userEmail = resultSet.getString("email");
+                String role = resultSet.getString("role");
 
+                // Record login activity
                 recordLogin(
                         connection,
-                        resultSet.getInt("user_id"),
+                        userId,
                         getClientIp(request)
                 );
 
-                // ==========================================
-                // CREATE SESSION
-                // ==========================================
+                // Create a fresh session
+                HttpSession session = request.getSession(true);
 
-                HttpSession session =
-                        request.getSession(true);
-
-                session.setAttribute(
-                        "userId",
-                        resultSet.getInt("user_id")
-                );
-
-                session.setAttribute(
-                        "userName",
-                        resultSet.getString("name")
-                );
-
-                session.setAttribute(
-                        "userEmail",
-                        resultSet.getString("email")
-                );
-
-                session.setAttribute(
-                        "userRole",
-                        resultSet.getString("role")
-                );
+                session.setAttribute("userId", userId);
+                session.setAttribute("userName", name);
+                session.setAttribute("userEmail", userEmail);
+                session.setAttribute("userRole", role);
 
                 // Prevent session fixation
                 request.changeSessionId();
 
+                // Prevent cached login/dashboard responses
+                response.setHeader(
+                        "Cache-Control",
+                        "no-cache, no-store, must-revalidate"
+                );
+
                 response.sendRedirect(
-                        "dashboard.html"
+                        request.getContextPath() + "/dashboard.html"
                 );
             }
 
@@ -169,9 +124,7 @@ public class LoginServlet extends HttpServlet {
 
             e.printStackTrace();
 
-            response.setContentType(
-                    "text/html;charset=UTF-8"
-            );
+            response.setContentType("text/html;charset=UTF-8");
 
             response.getWriter().println(
                     "<h2>Login Error</h2>" +
@@ -181,12 +134,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    // ==========================================
-    // SAVE LOGIN ACTIVITY
-    // A logging problem must never block a login,
-    // so any error here is printed and ignored.
-    // ==========================================
-
+    // Save login history and update last login
     private void recordLogin(
             Connection connection,
             int userId,
@@ -207,8 +155,7 @@ public class LoginServlet extends HttpServlet {
 
         try (PreparedStatement updateStatement =
                      connection.prepareStatement(
-                             "UPDATE users " +
-                             "SET last_login = CURRENT_TIMESTAMP " +
+                             "UPDATE users SET last_login = CURRENT_TIMESTAMP " +
                              "WHERE user_id = ?")) {
 
             updateStatement.setInt(1, userId);
@@ -219,10 +166,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    // ==========================================
-    // CLIENT IP (works behind Railway's proxy)
-    // ==========================================
-
+    // Get client IP address
     private String getClientIp(HttpServletRequest request) {
 
         String forwarded =
@@ -235,13 +179,12 @@ public class LoginServlet extends HttpServlet {
         return request.getRemoteAddr();
     }
 
+    // Invalid login response
     private void showInvalidLogin(
             HttpServletResponse response)
             throws IOException {
 
-        response.setContentType(
-                "text/html;charset=UTF-8"
-        );
+        response.setContentType("text/html;charset=UTF-8");
 
         response.getWriter().println(
                 "<h2>Invalid email or password</h2>" +
